@@ -16,6 +16,7 @@ def GetTemplate(cap):
     roi0 = cv2.selectROI(frame0)
     x0, y0, w1, h1 = roi0
     frame_roi = frame0[y0: y0 + h1, x0: x0 + w1]
+    cv2.destroyAllWindows()  # 关闭窗口
     return roi0, frame_roi
 
 
