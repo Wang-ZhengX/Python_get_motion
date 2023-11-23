@@ -8,6 +8,7 @@ cap = cv2.VideoCapture('video/motion.avi')
 # 获取视频的帧率
 fps = cap.get(cv2.CAP_PROP_FPS)
 
+
 # 定义位移结果的空列表
 x_displacement = []
 y_displacement = []
