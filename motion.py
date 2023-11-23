@@ -1,12 +1,10 @@
 from pymotion import *
 
 video = 'video/motion.avi'
-x_displacement = []
 y_displacement = []
 cap, fps = GetFps(video)
 VideoRoi, VideoTemplate = GetTemplate(cap)
 x0, y0, w1, h1 = VideoRoi
-y_f = 100
 
 
 # 循环读取视频帧
@@ -15,9 +13,9 @@ while cap.isOpened():
     ret, frame = cap.read()
     if not ret:
         break
-    template_area, yf = TemplateArea(VideoRoi, frame, y_f)
+    template_area, yf = GetTemplateArea(VideoRoi, frame)
 
-    x1, y1, dy = Getdy(template_area, VideoTemplate, y_f)
+    x1, y1, dy = Getdy(template_area, VideoTemplate)
 
     # 将所得数据放入列表
     y_displacement.append(dy)
@@ -36,6 +34,4 @@ cap.release()  # 释放硬件资源防止报错
 cv2.destroyAllWindows()  # 关闭窗口
 
 time, y_displacement, freq, amplitude_y = Getfft(fps, y_displacement)
-
-a = plot(time, y_displacement, freq, amplitude_y)
-
+a = ploty(time, y_displacement, freq, amplitude_y)
