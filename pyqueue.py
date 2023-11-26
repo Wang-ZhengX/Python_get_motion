@@ -47,7 +47,7 @@ def tempalte_plot(q):
 if __name__ == '__main__':
     q = queue.Queue()  # 创建一个队列对象
 
-    # 创建生产者线程和消费者线程
+    # 创建匹配获取dy线程和绘图线程
     producer_thread = threading.Thread(target=tempalte_dy, args=(q,))
     consumer_thread = threading.Thread(target=tempalte_plot, args=(q,))
 

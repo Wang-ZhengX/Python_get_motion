@@ -34,4 +34,4 @@ queue.PriorityQueue	优先级队列
   - def ploty(time, y_displacement, freq, amplitude_y)  -->绘图处理
 
 ## 11/25
-- SIFT算法进行两张图片特征点匹配  -->KSIFT.py
+- SIFT算法进行两张图片特征点匹配(尚未运用到motion.py)  -->KSIFT.py
