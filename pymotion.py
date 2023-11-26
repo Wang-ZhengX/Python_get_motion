@@ -13,7 +13,9 @@ def GetTemplate(cap):
     # 获取模板，返回模板位置信息和像素矩阵
     cap.set(cv2.CAP_PROP_POS_FRAMES, 1)
     _, frame0 = cap.read()
-    roi0 = cv2.selectROI(frame0)
+    # frame0 = cv2.resize(frame0, (0, 0), fx=2, fy=2, interpolation=cv2.INTER_LANCZOS4)
+    cv2.namedWindow('frame0', cv2.WINDOW_NORMAL)
+    roi0 = cv2.selectROI('frame0',frame0)
     x0, y0, w1, h1 = roi0
     frame_roi = frame0[y0: y0 + h1, x0: x0 + w1]
     cv2.destroyAllWindows()  # 关闭窗口

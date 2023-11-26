@@ -1,4 +1,5 @@
 from pymotion import *
+from KSIFT import getsift
 
 video = 'video/motion.avi'
 y_displacement = []
@@ -13,6 +14,8 @@ while cap.isOpened():
     ret, frame = cap.read()
     if not ret:
         break
+
+    # frame = cv2.resize(frame, (0, 0), fx=2, fy=2, interpolation=cv2.INTER_LANCZOS4)
     template_area, yf = GetTemplateArea(VideoRoi, frame)
 
     x1, y1, dy = Getdy(template_area, VideoTemplate)
@@ -26,6 +29,7 @@ while cap.isOpened():
     # 在矩形框上显示位移
     cv2.putText(frame, f"dy: {dy}", (x0, y0 - yf - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (255, 0, 0), 2)
     # 建立窗口并刷新图像
+    cv2.namedWindow('Frame', cv2.WINDOW_NORMAL)
     cv2.imshow('Frame', frame)
     if cv2.waitKey(1) == ord('q'):
         break

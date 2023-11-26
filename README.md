@@ -28,7 +28,8 @@ queue.PriorityQueue	优先级队列
 - 函数封装 
   - def GetFps(video_path)  -->获取视频帧数和视频文件
   - def GetTemplate(cap)   -->获取匹配模板信息(位置、像素矩阵)
-  - def TemplateArea(VideoRoi, frame, yf)  -->获取逐帧匹配范围
+  - def GetTemplateArea(VideoRoi, frame, yf)  -->获取逐帧匹配范围
   - def Getdy(template_area, VideoTemplate, yf)  -->获取y方向的位移
   - def Getfft(fps, y_displacement)  -->对位移时程作傅里叶变换
-  - def plot(time, y_displacement, freq, amplitude_y)  -->绘图处理
+  - def ploty(time, y_displacement, freq, amplitude_y)  -->绘图处理
+
