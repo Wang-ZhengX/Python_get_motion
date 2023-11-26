@@ -1,5 +1,7 @@
 # Python_get_motion
-
+**项目依赖：**
+> pip install -r requirements.txt
+___
 ## 1.motion.py
 调用pymotion.py中的自定义函数
 

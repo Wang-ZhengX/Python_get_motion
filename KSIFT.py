@@ -38,8 +38,8 @@ def getsift(img1, img2):
     return keypoints_1, keypoints_2, src_pts, dst_pts, good
 
 if __name__ == '__main__':
-    img1 = cv2.imread('image/dot1.png', 0)
-    img2 = cv2.imread('image/dot2.png', 0)
+    img1 = cv2.imread('image/41.jpg', 0)
+    img2 = cv2.imread('image/42.jpg', 0)
     keypoints_1, keypoints_2, src_pts, dst_pts, good = getsift(img1, img2)
     img3 = cv2.drawMatches(img1, keypoints_1, img2, keypoints_2, good[:100], img2, flags=2)
     plt.imshow(img3)
