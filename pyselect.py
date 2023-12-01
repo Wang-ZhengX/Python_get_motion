@@ -10,12 +10,20 @@ import keyboard
 # ret, frame0 = cap.read()
 #
 
-def capget(cap):  # 输入视频数据
+def capget(videopath):  # 输入视频数据
+    # 打开视频文件
+    cap = cv2.VideoCapture(videopath)
     # 获取视频的帧率,总帧数（化成整形）
     fps = cap.get(cv2.CAP_PROP_FPS)
     frames = cap.get(cv2.CAP_PROP_FRAME_COUNT)
     frames = int(frames)
-    return fps, frames  # 输出视频帧率fps，总帧数frames
+    return cap, fps, frames  # 输出视频帧率fps，总帧数frames
+
+
+def frameget(cap):
+    cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
+    ret, framezero = cap.read()  # 读取第一帧
+    return framezero
 
 
 def templateget(frame0):    # 输入第一帧图片
@@ -31,12 +39,8 @@ def templateget(frame0):    # 输入第一帧图片
         n = n + 1
         if keyboard.is_pressed('enter'):  # 监听按键‘enter’退出循环
             break
-    cv2.destroyAllWindows()
+    cv2.destroyAllWindows()  # 关闭窗口
     return rois, n    # 输出框选坐标数据集rois，框选数n
-
-
-# # 关闭窗口
-
 
 
 def main(frames, n, rois, frame0, cap):
@@ -91,46 +95,3 @@ def main(frames, n, rois, frame0, cap):
             break
 
     return datas
-
-
-# cap.release()  # 释放硬件资源防止报错
-# cv2.destroyAllWindows()  # 关闭窗口
-
-# # 绘制位移随时间变化的图像
-# for z in range(n):
-#     time = np.arange(len(datas[0])) / fps
-#     y = datas[z]
-#     plt.plot(time, y)
-#     plt.show()
-#
-# # 对位移时程进行FFT变换
-# fft_y = np.fft.fft(y_displacement)
-# # 获取频率轴
-# freq = np.fft.fftfreq(len(x_displacement), d=1 / fps)
-# # 获取主要频率成分的索引
-#
-# # 获取主要频率
-# main_freq_idx_y = np.argmax(np.abs(fft_y))
-# main_freq_y = freq[main_freq_idx_y]
-# print(f"Main frequency in y direction: {main_freq_y} Hz")
-#
-# # 获取FFT结果的幅值谱
-# amplitude_y = np.abs(fft_y)
-#
-# # 位移时程图像
-# plt.figure(figsize=(10, 5))
-# plt.subplot(1, 2, 1)
-# plt.plot(time, y_displacement, label='y displacement')
-# plt.xlabel('t(s)')
-# plt.ylabel('displacement(pixel)')
-# plt.legend()
-#
-# # 绘制结构幅值随频率变化的图像
-# plt.subplot(1, 2, 2)
-# plt.plot(freq[:len(freq) // 2], amplitude_y[:len(freq) // 2], label='y Amplitude')
-# plt.xlabel('frequency(Hz)')
-# plt.ylabel('A(pixel)')  # get Amplitude 获取振幅
-# plt.legend()
-#
-# plt.tight_layout()
-# plt.show()
