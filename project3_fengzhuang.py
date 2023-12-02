@@ -8,7 +8,7 @@ import keyboard
 # # 读取视频第一帧frame0
 # cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
 # ret, frame0 = cap.read()
-#
+
 
 def capget(cap):  # 输入视频数据
     # 获取视频的帧率,总帧数（化成整形）
