@@ -26,6 +26,8 @@ queue.PriorityQueue	优先级队列
   - 第2个元素是：要存放的数据
 - 使用get取数据
 
+---
+## Update
 ## 2023/11/22
 - 函数封装 
   - def GetFps(video_path)  -->获取视频帧数和视频文件
@@ -37,3 +39,12 @@ queue.PriorityQueue	优先级队列
 
 ## 11/25
 - SIFT算法进行两张图片特征点匹配(尚未运用到motion.py)  -->KSIFT.py
+
+## 11/26
+- 双线程处理数据-->pyqueue.py
+
+## 12/1
+- 框选多个感兴趣区域进行位移提取-->motion_select.py&pyselect.py
+
+## 12/3
+- 位移提取结合KSIFT.py
