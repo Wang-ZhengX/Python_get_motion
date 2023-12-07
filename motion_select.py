@@ -13,9 +13,6 @@ framezero = frameget(cap)
 # 主函数，得到位移数据集datas
 datas = main(frames, n, rois, framezero, cap)
 
-# 将datas按n等份分割
-[y_displacement1, y_displacement2, y_displacement3] = np.split(datas, n)
-
 for i in range(n):
-    time, y_displacement, freq, amplitude_y = Getfft(fps, datas[n])
+    time, y_displacement, freq, amplitude_y = Getfft(fps, datas[i].tolist())
     a = ploty(time, y_displacement, freq, amplitude_y)
