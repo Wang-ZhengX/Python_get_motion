@@ -1,6 +1,8 @@
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
+from KSIFT import getsift
+
 
 def GetFps(video_path):
     # 读取视频帧和视频文件
@@ -29,14 +31,19 @@ def GetTemplateArea(VideoRoi, frame, yf = 100):
     return frame_Area, yf
 
 
-def Getdy(template_area, VideoTemplate, yf = 100):
+def Getdy(template_area, VideoTemplate, h1, w1, yf = 100):
     # 获取y方向的位移
     result = cv2.matchTemplate(template_area, VideoTemplate, cv2.TM_CCORR_NORMED)
     min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
-
     x1 = max_loc[0]
     y1 = max_loc[1]
-    dy = y1 - yf + 23
+    frame_template = template_area[y1: y1 + h1, x1: x1 + w1]
+    keypoints_1, keypoints_2, src_pts, dst_pts, good = getsift(frame_template, VideoTemplate)
+    displacement = src_pts - dst_pts
+    # dylist = np.take(displacement, 1, axis=1)
+    dylist = displacement[:, 1]
+    sift_dy = np.around(np.nanmean(dylist),3)
+    dy = y1 - yf + 23 + sift_dy
     return x1, y1, dy
 
 
@@ -82,7 +89,6 @@ def ploty(time, y_displacement, freq, amplitude_y):
 
 
 
-
 if __name__ == '__main__':
 
     video = 'video/motion.avi'
@@ -99,7 +105,7 @@ if __name__ == '__main__':
             break
         template_area, yf = GetTemplateArea(VideoRoi, frame)
 
-        x1, y1, dy = Getdy(template_area, VideoTemplate)
+        x1, y1, dy = Getdy(template_area, VideoTemplate, h1, w1)
 
         # 将所得数据放入列表
         y_displacement.append(dy)

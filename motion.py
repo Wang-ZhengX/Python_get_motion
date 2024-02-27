@@ -1,5 +1,5 @@
 from pymotion import *
-from KSIFT import getsift
+
 
 video = 'video/motion.avi'
 y_displacement = []
@@ -18,7 +18,7 @@ while cap.isOpened():
     # frame = cv2.resize(frame, (0, 0), fx=2, fy=2, interpolation=cv2.INTER_LANCZOS4)
     template_area, yf = GetTemplateArea(VideoRoi, frame)
 
-    x1, y1, dy = Getdy(template_area, VideoTemplate)
+    x1, y1, dy = Getdy(template_area, VideoTemplate, h1, w1)
 
     # 将所得数据放入列表
     y_displacement.append(dy)
