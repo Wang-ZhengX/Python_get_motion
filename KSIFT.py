@@ -39,8 +39,8 @@ def getsift(img1, img2):
     return keypoints_1, keypoints_2, src_pts, dst_pts, good
 
 if __name__ == '__main__':
-    img1 = cv2.imread('image/dot1.png', 0)
-    img2 = cv2.imread('image/dot2.png', 0)
+    img1 = cv2.imread('image/1.png', 0)
+    img2 = cv2.imread('image/2.png', 0)
     keypoints_1, keypoints_2, src_pts, dst_pts, good = getsift(img1, img2)
     displacement = src_pts - dst_pts
     dy = displacement[:, 1]
