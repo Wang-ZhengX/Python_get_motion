@@ -13,7 +13,7 @@ def GetFps(video_path):
 
 def GetTemplate(cap):
     # 获取模板，返回模板位置信息和像素矩阵
-    cap.set(cv2.CAP_PROP_POS_FRAMES, 1)
+    cap.set(cv2.CAP_PROP_POS_FRAMES, 800)
     _, frame0 = cap.read()
     # frame0 = cv2.resize(frame0, (0, 0), fx=2, fy=2, interpolation=cv2.INTER_LANCZOS4)
     cv2.namedWindow('frame0', cv2.WINDOW_NORMAL)
@@ -39,11 +39,16 @@ def Getdy(template_area, VideoTemplate, h1, w1, yf = 100):
     y1 = max_loc[1]
     frame_template = template_area[y1: y1 + h1, x1: x1 + w1]
     keypoints_1, keypoints_2, src_pts, dst_pts, good = getsift(frame_template, VideoTemplate)
-    displacement = src_pts - dst_pts
-    # dylist = np.take(displacement, 1, axis=1)
-    dylist = displacement[:, 1]
-    sift_dy = np.around(np.nanmean(dylist),3)
-    dy = y1 - yf + 23 + sift_dy
+    sift_displacement = src_pts - dst_pts
+    # if判断sift_displacement是否为空列表
+    if sift_displacement.any():
+        # dylist = np.take(displacement, 1, axis=1)
+        dylist = sift_displacement[:, 1]
+        sift_dy = np.around(np.mean(dylist),2)
+        dy = y1 - yf + sift_dy
+
+    else:
+        dy = y1 - yf
     return x1, y1, dy
 
 
@@ -97,6 +102,7 @@ if __name__ == '__main__':
     VideoRoi, VideoTemplate = GetTemplate(cap)
     x0, y0, w1, h1 = VideoRoi
 
+    cap.set(cv2.CAP_PROP_POS_FRAMES, 1)
     # 循环读取视频帧
     while cap.isOpened():
         # 读取一帧
