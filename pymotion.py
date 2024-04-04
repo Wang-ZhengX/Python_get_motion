@@ -47,7 +47,7 @@ def Getdy(template_area, VideoTemplate, h1, w1, yf = 100):
         dylist = sift_displacement[:, 1]
         sify_dy = np.around(dylist,decimals=2)
         sift_dy = np.mean(sify_dy)
-        dy = y1 - yf + sift_dy
+        dy =  np.float32(y1 - yf) + sift_dy
     else:
         dy = y1 - yf
     return x1, y1, dy
