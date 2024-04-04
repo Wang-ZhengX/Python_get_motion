@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 image = cv2.imread('image/41.jpg', cv2.IMREAD_GRAYSCALE)
 
 # 定义结构元素
-kernel = np.ones((5, 5), np.uint8)
+kernel = np.ones((6, 6), np.uint8)
 
 # 膨胀操作
 dilated_image = cv2.dilate(image, kernel, iterations=1)

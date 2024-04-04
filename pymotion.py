@@ -8,12 +8,13 @@ def GetFps(video_path):
     # 读取视频帧和视频文件
     cap = cv2.VideoCapture(video_path)
     fps = cap.get(cv2.CAP_PROP_FPS)
-    return cap, fps
+    zhen_num = cap.get(cv2.CAP_PROP_FRAME_COUNT)
+    return cap, fps, zhen_num
 
 
-def GetTemplate(cap):
+def GetTemplate(cap, video_zhen_num):
     # 获取模板，返回模板位置信息和像素矩阵
-    cap.set(cv2.CAP_PROP_POS_FRAMES, 800)
+    cap.set(cv2.CAP_PROP_POS_FRAMES, video_zhen_num - 1)
     _, frame0 = cap.read()
     # frame0 = cv2.resize(frame0, (0, 0), fx=2, fy=2, interpolation=cv2.INTER_LANCZOS4)
     cv2.namedWindow('frame0', cv2.WINDOW_NORMAL)
@@ -44,9 +45,9 @@ def Getdy(template_area, VideoTemplate, h1, w1, yf = 100):
     if sift_displacement.any():
         # dylist = np.take(displacement, 1, axis=1)
         dylist = sift_displacement[:, 1]
-        sift_dy = np.around(np.mean(dylist),2)
+        sify_dy = np.around(dylist,decimals=2)
+        sift_dy = np.mean(sify_dy)
         dy = y1 - yf + sift_dy
-
     else:
         dy = y1 - yf
     return x1, y1, dy
@@ -92,16 +93,7 @@ def ploty(time, y_displacement, freq, amplitude_y):
     plt.show()
     return plt.show()
 
-
-
-if __name__ == '__main__':
-
-    video = 'video/motion.avi'
-    y_displacement = []
-    cap, fps = GetFps(video)
-    VideoRoi, VideoTemplate = GetTemplate(cap)
-    x0, y0, w1, h1 = VideoRoi
-
+def Getloop(cap):
     cap.set(cv2.CAP_PROP_POS_FRAMES, 1)
     # 循环读取视频帧
     while cap.isOpened():
@@ -128,6 +120,14 @@ if __name__ == '__main__':
 
     cap.release()  # 释放硬件资源防止报错
     cv2.destroyAllWindows()  # 关闭窗口
+    return y_displacement
 
-    time, y_displacement, freq, amplitude_y = Getfft(fps, y_displacement)
+if __name__ == '__main__':
+
+    video = 'video/motion.avi'
+    y_displacement = []
+    cap, fps, zhen_num = GetFps(video)
+    VideoRoi, VideoTemplate = GetTemplate(cap, zhen_num)
+    x0, y0, w1, h1 = VideoRoi
+    time, y_displacement, freq, amplitude_y = Getfft(fps, Getloop(cap))
     a = ploty(time, y_displacement, freq, amplitude_y)
