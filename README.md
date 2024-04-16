@@ -28,7 +28,7 @@ queue.PriorityQueue	优先级队列
 
 ---
 ## Update
-## 2023/11/22
+## 2024/2/22
 - 函数封装 
   - def GetFps(video_path)  -->获取视频帧数和视频文件
   - def GetTemplate(cap)   -->获取匹配模板信息(位置、像素矩阵)
@@ -37,16 +37,16 @@ queue.PriorityQueue	优先级队列
   - def Getfft(fps, y_displacement)  -->对位移时程作傅里叶变换
   - def ploty(time, y_displacement, freq, amplitude_y)  -->绘图处理
 
-## 11/25
+## 2/25
 - SIFT算法进行两张图片特征点匹配(尚未运用到motion.py)  -->KSIFT.py
 
-## 11/26
+## 2/26
 - 双线程处理数据-->pyqueue.py
 
-## 12/1
+## 3/3
 - 框选多个感兴趣区域进行位移提取-->motion_select.py&pyselect.py
 
-## 12/3
+## 3/9
 - 位移提取结合KSIFT.py
 
 ## 03/16   形态学处理
